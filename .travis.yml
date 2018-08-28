@@ -5,26 +5,24 @@ node_js: stable
 install:
   - npm install
 
-
-#before_script:
- # - npm install -g gulp
+# before_script:
+# - npm install -g gulp
 
 script:
-  - hexo g -d
+  - hexo g
 
-after_script:
-#  - cd ./public
-#  - git init
-#  - git config user.name "luffySAMA"
-#  - git config user.email "caihuapeng@126.com"
-#  - git add .
-#  - git commit -m "Update docs"
-#  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
-# E: Build LifeCycle
+# after_script:
 
 branches:
   only:
     - source
-env:
- global:
-   - GH_REF: github.com/luffySAMA/luffySAMA.github.io
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
+  keep-history: true
+  local-dir: public
+  target-branch: master
+  on:
+    branch: source
