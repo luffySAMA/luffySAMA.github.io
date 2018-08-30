@@ -2,6 +2,7 @@
 title: 在 CodePen 上分享代码
 date: 2018-08-29 20:20:06
 tags:
+categories: 工具
 ---
 
 [codePen](https://codepen.io/) 是一个很好的代码分享平台，每天打开 codepen，都可以在上面看到很多由codepen 管理员精选出来的项目
