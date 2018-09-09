@@ -1,15 +1,21 @@
 ---
-title: Electron Web 安装包配置方法
+title: Electron Nsis Web 安装包配置方法
 date: 2018-09-08 20:21:54
 tags: electron
 categories: 教程
 ---
 
-web 版的安装包首先要选择一个发布源，也就是安装包存放的地方，有 BintrayOptions, GenericServerOptions, GitHub, S3Options, SpacesOptions 可供选择,这里我选择 Github。
+![electron.png](https://i.loli.net/2018/09/09/5b95124e51ad6.png)
+
+一般来说，一个 Electron 应用的 Windows 安装包最小也有 30 多 M，如果是 32 位 + 64 位的安装包，那就会是 60 多 M，而如果打成 web 版的安装包则非常小，只有几百 K，它在用户安装的时候再根据用户操作系统的位数去下载相应的安装包并安装。
+
+制作 Electron Nsis Web 版的安装包首先要选择一个发布源，也就是安装包存放的地方，有 BintrayOptions, GenericServerOptions, GitHub, S3Options, SpacesOptions 可供选择，这里我选择 Github。
+
+<!-- more -->
 
 ## 1. 配置 github
 
-**第一步**，首先要在 github 上新建一个项目<!-- more -->，新建的时候勾上"Initialize this repository with a README" 选项
+**第一步**，首先要在 github 上新建一个项目，新建的时候勾上"Initialize this repository with a README" 选项
 
 ![create-repo.png](https://i.loli.net/2018/09/08/5b938b677e0ca.png)
 
@@ -87,6 +93,14 @@ export GH_TOKEN=xxxxxxxxxxxxxxx
 
 好了，现在运行 `npm run release` 就会在 github 项目的 release 里面看到
 
-[![release.png](https://i.loli.net/2018/09/08/5b93b4d4ed85d.png)](https://i.loli.net/2018/09/08/5b93b4d4ed85d.png)
+![release.png](https://i.loli.net/2018/09/08/5b93b4d4ed85d.png)
 
-其中 `electron-app-setup-1.0.0.exe` 就是 web 版的安装包，而另外两个 `.7z`的是实际的安装包，我们只要让用户下载 web 版的安装包就可以了。
+其中 `electron-app_Setup_1.0.0.exe` 就是 web 版的安装包，而另外两个 `.7z`的是实际的安装包，我们只要让用户下载 web 版的安装包就可以了。
+
+---
+
+附源码
+
+> web 版：https://github.com/luffySAMA/electron-app
+
+> 普通版：https://github.com/szwacz/electron-boilerplate
