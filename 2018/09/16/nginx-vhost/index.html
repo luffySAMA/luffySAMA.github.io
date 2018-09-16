@@ -108,31 +108,25 @@
 
 
 
-  <meta name="description" content="一般来说，一个 Electron 应用的 Windows 安装包最小也有 30 多 M，如果是 32 位 + 64 位的安装包，那就会是 60 多 M，而如果打成 web 版的安装包则非常小，只有几百 K，它在用户安装的时候再根据用户操作系统的位数去下载相应的安装包并安装。 制作 Electron Nsis Web 版的安装包首先要选择一个发布源，也就是安装包存放的地方，有 BintrayOpt">
-<meta name="keywords" content="electron">
+  <meta name="description" content="最开始我租服务器的目的和许多人一样——想去看看“外面”的世界。当我实现这个小目标之后，我发现我对服务器的资源利用率  其实是非常低的，换句话说，我太浪费了。我开始思考我应该可以用这台服务器干更多的事情，比如在上面建个网站、写写博客、还可以搭一个私有云盘……等等等等 那么我该怎样把多个东西部署在同一个服务器上呢？如果我的网站是在 80 端口，博客是在 8080 端口，然后我的私有云盘是在 3000">
+<meta name="keywords" content="nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Electron Nsis Web 安装包配置方法">
-<meta property="og:url" content="https://www.luffysama.com/2018/09/08/electron-nsis-web/index.html">
+<meta property="og:title" content="如何在一台服务器上部署多个网站或应用">
+<meta property="og:url" content="https://www.luffysama.com/2018/09/16/nginx-vhost/index.html">
 <meta property="og:site_name" content="luffySAMA&#39;s blog">
-<meta property="og:description" content="一般来说，一个 Electron 应用的 Windows 安装包最小也有 30 多 M，如果是 32 位 + 64 位的安装包，那就会是 60 多 M，而如果打成 web 版的安装包则非常小，只有几百 K，它在用户安装的时候再根据用户操作系统的位数去下载相应的安装包并安装。 制作 Electron Nsis Web 版的安装包首先要选择一个发布源，也就是安装包存放的地方，有 BintrayOpt">
+<meta property="og:description" content="最开始我租服务器的目的和许多人一样——想去看看“外面”的世界。当我实现这个小目标之后，我发现我对服务器的资源利用率  其实是非常低的，换句话说，我太浪费了。我开始思考我应该可以用这台服务器干更多的事情，比如在上面建个网站、写写博客、还可以搭一个私有云盘……等等等等 那么我该怎样把多个东西部署在同一个服务器上呢？如果我的网站是在 80 端口，博客是在 8080 端口，然后我的私有云盘是在 3000">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.loli.net/2018/09/09/5b95124e51ad6.png">
-<meta property="og:image" content="https://i.loli.net/2018/09/08/5b938b677e0ca.png">
-<meta property="og:image" content="https://i.loli.net/2018/09/08/5b938b67648ed.png">
-<meta property="og:image" content="https://i.loli.net/2018/09/08/5b938b678112c.png">
-<meta property="og:image" content="https://i.loli.net/2018/09/08/5b93b4d4ed85d.png">
 <meta property="og:updated_time" content="2018-09-16T16:23:06.223Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Electron Nsis Web 安装包配置方法">
-<meta name="twitter:description" content="一般来说，一个 Electron 应用的 Windows 安装包最小也有 30 多 M，如果是 32 位 + 64 位的安装包，那就会是 60 多 M，而如果打成 web 版的安装包则非常小，只有几百 K，它在用户安装的时候再根据用户操作系统的位数去下载相应的安装包并安装。 制作 Electron Nsis Web 版的安装包首先要选择一个发布源，也就是安装包存放的地方，有 BintrayOpt">
-<meta name="twitter:image" content="https://i.loli.net/2018/09/09/5b95124e51ad6.png">
+<meta name="twitter:title" content="如何在一台服务器上部署多个网站或应用">
+<meta name="twitter:description" content="最开始我租服务器的目的和许多人一样——想去看看“外面”的世界。当我实现这个小目标之后，我发现我对服务器的资源利用率  其实是非常低的，换句话说，我太浪费了。我开始思考我应该可以用这台服务器干更多的事情，比如在上面建个网站、写写博客、还可以搭一个私有云盘……等等等等 那么我该怎样把多个东西部署在同一个服务器上呢？如果我的网站是在 80 端口，博客是在 8080 端口，然后我的私有云盘是在 3000">
 
 
 
 
 
 
-  <link rel="canonical" href="https://www.luffysama.com/2018/09/08/electron-nsis-web/"/>
+  <link rel="canonical" href="https://www.luffysama.com/2018/09/16/nginx-vhost/"/>
 
 
 
@@ -142,7 +136,7 @@
   };
 </script>
 
-  <title>Electron Nsis Web 安装包配置方法 | luffySAMA's blog</title>
+  <title>如何在一台服务器上部署多个网站或应用 | luffySAMA's blog</title>
   
 
 
@@ -317,7 +311,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.luffysama.com/2018/09/08/electron-nsis-web/">
+    <link itemprop="mainEntityOfPage" href="https://www.luffysama.com/2018/09/16/nginx-vhost/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luffySAMA">
@@ -334,7 +328,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Electron Nsis Web 安装包配置方法
+          <h2 class="post-title" itemprop="name headline">如何在一台服务器上部署多个网站或应用
               
             
           </h2>
@@ -359,7 +353,7 @@
                 
               
 
-              <time title="创建时间：2018-09-08 20:21:54" itemprop="dateCreated datePublished" datetime="2018-09-08T20:21:54+00:00">2018-09-08</time>
+              <time title="创建时间：2018-09-16 22:51:00" itemprop="dateCreated datePublished" datetime="2018-09-16T22:51:00+00:00">2018-09-16</time>
             
 
             
@@ -377,7 +371,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/教程/" itemprop="url" rel="index"><span itemprop="name">教程</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/经验总结/" itemprop="url" rel="index"><span itemprop="name">经验总结</span></a></span>
 
                 
                 
@@ -392,8 +386,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/08/electron-nsis-web/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2018/09/08/electron-nsis-web/" itemprop="commentsCount"></span>
+                <a href="/2018/09/16/nginx-vhost/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count gitment-comments-count" data-xid="/2018/09/16/nginx-vhost/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -401,7 +395,7 @@
 
           
           
-             <span id="/2018/09/08/electron-nsis-web/" class="leancloud_visitors" data-flag-title="Electron Nsis Web 安装包配置方法">
+             <span id="/2018/09/16/nginx-vhost/" class="leancloud_visitors" data-flag-title="如何在一台服务器上部署多个网站或应用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -432,47 +426,38 @@
       
 
       
-        <p><img src="https://i.loli.net/2018/09/09/5b95124e51ad6.png" alt="electron.png"></p>
-<p>一般来说，一个 Electron 应用的 Windows 安装包最小也有 30 多 M，如果是 32 位 + 64 位的安装包，那就会是 60 多 M，而如果打成 web 版的安装包则非常小，只有几百 K，它在用户安装的时候再根据用户操作系统的位数去下载相应的安装包并安装。</p>
-<p>制作 Electron Nsis Web 版的安装包首先要选择一个发布源，也就是安装包存放的地方，有 BintrayOptions, GenericServerOptions, GitHub, S3Options, SpacesOptions 可供选择，这里我选择 Github。</p>
+        <p>最开始我租服务器的目的和许多人一样——想去看看“外面”的世界。当我实现这个小目标之后，我发现我对服务器的资源利用率  其实是非常低的，换句话说，我太浪费了。我开始思考我应该可以用这台服务器干更多的事情，比如在上面建个网站、写写博客、还可以搭一个私有云盘……等等等等</p>
+<p>那么我该怎样把多个东西部署在同一个服务器上呢？如果我的网站是在 80 端口，博客是在 8080 端口，然后我的私有云盘是在 3000 端口，那我每次访问的时候，都得在我的域名后面接上一个端口号。这样不仅我自己用的时候不方便，而且我把链接发给别人的时候，也会让人感觉怪怪的……我想要是我能用不同的域名指向不同的端口号就好了，然而事实上这种做法是行不通的，原因是域名解析的时候，只能将域名指向某个 ip，不能指定端口号。</p>
+<p>此时使用 <strong>Nginx</strong> 可以很轻松地解决上面的问题。</p>
 <a id="more"></a>
-<h2 id="1-配置-github"><a href="#1-配置-github" class="headerlink" title="1. 配置 github"></a>1. 配置 github</h2><p><strong>第一步</strong>，首先要在 github 上新建一个项目，新建的时候勾上”Initialize this repository with a README” 选项</p>
-<p><img src="https://i.loli.net/2018/09/08/5b938b677e0ca.png" alt="create-repo.png"></p>
-<p>今后我们的安装包将会上传到这个项目的 <code>release</code> 页面下，因此这个项目不需要写代码，我们只是用到这个项目的 release 功能而已。勾上 initialize 是为了 github 自动帮我们初始化项目，否则没有初始化的项目是不能使用 release 功能的。</p>
-<p><strong>第二步</strong>，创建 GH_TOKEN。每次发布安装包的时候当然不可能手动上传，通过 GH_TOKEN，我们可以用程序调用 github 的 api 来自动上传文件。</p>
-<p><a href="https://github.com/settings/tokens" target="_blank">点击这里</a> 或者 在 github 的个人设置中，找到 developer settings，然后点 Personal access token，来到如下页面，点击右上方的 “Generate new toke” 按钮</p>
-<p><img src="https://i.loli.net/2018/09/08/5b938b67648ed.png" alt="personal-access-token.png"></p>
-<p>接下来给 token 随便取一个名字，选择 scope 只勾选 repo 就可以了</p>
-<p><img src="https://i.loli.net/2018/09/08/5b938b678112c.png" alt="select-scope.png"></p>
-<p>最后点击最底下的 Generate 按钮，将会得到一个 GH_TOKEN，记得把这个 token 在本地用文件保存下来。</p>
-<p><strong>第三步</strong>，设置临时的环境变量</p>
-<p>windows 系统</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> GH_TOKEN=xxxxxxxxxxxxxxx</span><br></pre></td></tr></table></figure>
-<p>linux 系统</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GH_TOKEN=xxxxxxxxxxxxxxx</span><br></pre></td></tr></table></figure>
-<h2 id="2-配置package-json"><a href="#2-配置package-json" class="headerlink" title="2. 配置package.json"></a>2. 配置<code>package.json</code></h2><p>现在修改 <code>package.json</code> 中的 <code>build</code> 属性</p>
-<p>首先 把原先的 <code>nsis</code> 改为 <code>nsisWeb</code></p>
-<p>然后 把 <code>target</code> 改为 <code>nsis-web</code></p>
-<p>接下来设置 <code>publish</code> 属性</p>
-<ul>
-<li><code>provider</code> 填 <code>github</code></li>
-<li><code>repo</code> 填刚刚在 github 上新建的项目名，注意不是项目的 url</li>
-<li><code>owner</code> 就填我的 github 的账户名</li>
-<li><code>releaseType</code> 我选的是 <code>releaseType</code>，有三个选项“draft” | “prerelease” | “release” 默认是 <code>draft</code></li>
-</ul>
-<p>修改完之后的文件内容如下</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"build"</span>: &#123;</span><br><span class="line">    <span class="attr">"nsisWeb"</span>: &#123;</span><br><span class="line">      <span class="attr">"artifactName"</span>: <span class="string">"$&#123;productName&#125;_Setup_$&#123;version&#125;.$&#123;ext&#125;"</span>,</span><br><span class="line">      <span class="attr">"oneClick"</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">"perMachine"</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">"allowToChangeInstallationDirectory"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"win"</span>: &#123;</span><br><span class="line">      <span class="attr">"target"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"target"</span>: <span class="string">"nsis-web"</span>,</span><br><span class="line">          <span class="attr">"arch"</span>: [<span class="string">"x64"</span>, <span class="string">"ia32"</span>]</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"publish"</span>: &#123;</span><br><span class="line">      <span class="attr">"provider"</span>: <span class="string">"github"</span>,</span><br><span class="line">      <span class="attr">"repo"</span>: <span class="string">"electron-app"</span>,</span><br><span class="line">      <span class="attr">"owner"</span>: <span class="string">"luffySAMA"</span>,</span><br><span class="line">      <span class="attr">"releaseType"</span>: <span class="string">"release"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>好了，现在运行 <code>npm run release</code> 就会在 github 项目的 release 里面看到</p>
-<p><img src="https://i.loli.net/2018/09/08/5b93b4d4ed85d.png" alt="release.png"></p>
-<p>其中 <code>electron-app_Setup_1.0.0.exe</code> 就是 web 版的安装包，而另外两个 <code>.7z</code>的是实际的安装包，我们只要让用户下载 web 版的安装包就可以了。</p>
-<hr>
-<p>附源码</p>
-<blockquote>
-<p>web 版：<a href="https://github.com/luffySAMA/electron-app" target="_blank" rel="noopener">https://github.com/luffySAMA/electron-app</a></p>
-</blockquote>
-<blockquote>
-<p>普通版：<a href="https://github.com/szwacz/electron-boilerplate" target="_blank" rel="noopener">https://github.com/szwacz/electron-boilerplate</a></p>
-</blockquote>
+<h2 id="如何在一台服务器上部署多个网站"><a href="#如何在一台服务器上部署多个网站" class="headerlink" title="如何在一台服务器上部署多个网站"></a>如何在一台服务器上部署多个网站</h2><p>例如，在一个服务器上，托管了多个博客，类似于 github 的 gh-pages。当我  用 lucy.blog.com 访问的  时候，看到的是 lucy 的 blog，当我用 lily.blog.com 访问的时候，看到的是 lily 的 blog。</p>
+<p>如果博客是静态的，那么很简单，不需要用到多个端口， 用 Nginx 的虚拟主机(virtual host)功能就可以 轻松搞定。</p>
+<p>具体实现：</p>
+<p>首先启动  Nginx，运行在 80 端口。此时访问 80 端口，看到的是 Nginx 默认的欢迎界面，它的源文件在服务器的 <code>/usr/share/nginx/html</code> 目录下。</p>
+<p>在这个  目录的同级的地方，建两个新的文件夹分别为<code>/usr/share/nginx/lucy</code> 和 <code>/usr/share/nginx/lily</code>。 然后把 lucy 的博客文件传到 <code>lucy</code> 文件夹里，把 lily 的博客文件传到 <code>lily</code> 文件夹里。</p>
+<p>接着打开 Nginx 的配置文件 <code>/etc/nginx/nginx.conf</code>，找到 <code>http</code> 部分，在最后加上下面这行（如果没有的话）</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span> /etc/nginx/conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在 <code>/etc/nginx/conf.d</code> 目录里面创建一个 <code>lucy.conf</code> 文件，在 <code>lucy.conf</code> 里面写上下面这段代码</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> lucy.blog.com;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">root</span>   /usr/share/nginx/lucy;</span><br><span class="line">    <span class="attribute">index</span>  index.html index.htm;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+<p>重新加载配置</p>
+<p>这样当浏览器访问 lucy.blog.com 时，就会返回<code>/usr/share/nginx/lucy/index.html</code> 的内容。</p>
+<p>同理创建一个 <code>lily.conf</code>，在 <code>lily.conf</code> 里面写入</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> lily.blog.com;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">root</span>   /usr/share/nginx/lily;</span><br><span class="line">    <span class="attribute">index</span>  index.html index.htm;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+<p>重新加载配置</p>
+<p>这样当浏览器用 lily.blog.com 访问服务器时，就会返回 <code>/usr/share/nginx/lily/index.html</code> 的内容</p>
+<h2 id="如何在一台服务器上部署多个应用"><a href="#如何在一台服务器上部署多个应用" class="headerlink" title="如何在一台服务器上部署多个应用"></a>如何在一台服务器上部署多个应用</h2><p>另一种情况是，同一个服务器上部署了 2 个应用，分别运行在不同的端口，例如 tomcat 运行在 8080，nodejs 运行在 3000。这时候希望用域名而不是端口号来访问这两个应用，tomcat.abc.com 访问的就是 tomcat，nodejs.abc.com 访问的就是 nodejs。</p>
+<p>做法一样很简单，和上面的情况类似， 在 <code>conf.d</code> 目录下创建两个配置文件</p>
+<p><code>tomcat.conf</code></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> tomcat.abc.com;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span>   http://localhost:8080;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>nodejs.conf</code></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> nodejs.abc.com;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span>   http://localhost:3000;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建完成后运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
+<p>成功！</p>
 
       
     </div>
@@ -493,7 +478,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/electron/" rel="tag"># electron</a>
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
           
         </div>
       
@@ -506,8 +491,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/30/learn-git-branch/" rel="next" title="git 分支">
-                <i class="fa fa-chevron-left"></i> git 分支
+              <a href="/2018/09/08/electron-nsis-web/" rel="next" title="Electron Nsis Web 安装包配置方法">
+                <i class="fa fa-chevron-left"></i> Electron Nsis Web 安装包配置方法
               </a>
             
           </div>
@@ -515,10 +500,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/16/nginx-vhost/" rel="prev" title="如何在一台服务器上部署多个网站或应用">
-                如何在一台服务器上部署多个网站或应用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -684,7 +665,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-配置-github"><span class="nav-number">1.</span> <span class="nav-text">1. 配置 github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-配置package-json"><span class="nav-number">2.</span> <span class="nav-text">2. 配置package.json</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何在一台服务器上部署多个网站"><span class="nav-number">1.</span> <span class="nav-text">如何在一台服务器上部署多个网站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何在一台服务器上部署多个应用"><span class="nav-number">2.</span> <span class="nav-text">如何在一台服务器上部署多个应用</span></a></li></ol></div>
             
 
           </div>

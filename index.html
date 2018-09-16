@@ -110,13 +110,13 @@
 
   <meta name="description" content="前端开发">
 <meta property="og:type" content="website">
-<meta property="og:title" content="luffySAMA&#39;s home">
-<meta property="og:url" content="https://luffysama.github.io/index.html">
-<meta property="og:site_name" content="luffySAMA&#39;s home">
+<meta property="og:title" content="luffySAMA&#39;s blog">
+<meta property="og:url" content="https://www.luffysama.com/index.html">
+<meta property="og:site_name" content="luffySAMA&#39;s blog">
 <meta property="og:description" content="前端开发">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="luffySAMA&#39;s home">
+<meta name="twitter:title" content="luffySAMA&#39;s blog">
 <meta name="twitter:description" content="前端开发">
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="https://luffysama.github.io/"/>
+  <link rel="canonical" href="https://www.luffysama.com/"/>
 
 
 
@@ -134,7 +134,7 @@
   };
 </script>
 
-  <title>luffySAMA's home</title>
+  <title>luffySAMA's blog</title>
   
 
 
@@ -193,13 +193,13 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">luffySAMA's home</span>
+        <span class="site-title">luffySAMA's blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
     
       
-        <h1 class="site-subtitle" itemprop="description">每天都比昨天进步一点</h1>
+        <h1 class="site-subtitle" itemprop="description">保持一颗学习的心</h1>
       
     
   </div>
@@ -308,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luffysama.github.io/2018/09/08/electron-nsis-web/">
+    <link itemprop="mainEntityOfPage" href="https://www.luffysama.com/2018/09/16/nginx-vhost/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luffySAMA">
@@ -317,7 +317,178 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="luffySAMA's home">
+      <meta itemprop="name" content="luffySAMA's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/16/nginx-vhost/" itemprop="url">
+                  如何在一台服务器上部署多个网站或应用
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-16 22:51:00" itemprop="dateCreated datePublished" datetime="2018-09-16T22:51:00+00:00">2018-09-16</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/经验总结/" itemprop="url" rel="index"><span itemprop="name">经验总结</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/16/nginx-vhost/" class="leancloud_visitors" data-flag-title="如何在一台服务器上部署多个网站或应用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最开始我租服务器的目的和许多人一样——想去看看“外面”的世界。当我实现这个小目标之后，我发现我对服务器的资源利用率  其实是非常低的，换句话说，我太浪费了。我开始思考我应该可以用这台服务器干更多的事情，比如在上面建个网站、写写博客、还可以搭一个私有云盘……等等等等</p>
+<p>那么我该怎样把多个东西部署在同一个服务器上呢？如果我的网站是在 80 端口，博客是在 8080 端口，然后我的私有云盘是在 3000 端口，那我每次访问的时候，都得在我的域名后面接上一个端口号。这样不仅我自己用的时候不方便，而且我把链接发给别人的时候，也会让人感觉怪怪的……我想要是我能用不同的域名指向不同的端口号就好了，然而事实上这种做法是行不通的，原因是域名解析的时候，只能将域名指向某个 ip，不能指定端口号。</p>
+<p>此时使用 <strong>Nginx</strong> 可以很轻松地解决上面的问题。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/16/nginx-vhost/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.luffysama.com/2018/09/08/electron-nsis-web/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="luffySAMA">
+      <meta itemprop="description" content="前端开发">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="luffySAMA's blog">
     </span>
 
     
@@ -479,7 +650,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luffysama.github.io/2018/08/30/learn-git-branch/">
+    <link itemprop="mainEntityOfPage" href="https://www.luffysama.com/2018/08/30/learn-git-branch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luffySAMA">
@@ -488,7 +659,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="luffySAMA's home">
+      <meta itemprop="name" content="luffySAMA's blog">
     </span>
 
     
@@ -644,7 +815,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luffysama.github.io/2018/08/29/Share-Angular-on-StackBlitz/">
+    <link itemprop="mainEntityOfPage" href="https://www.luffysama.com/2018/08/29/Share-Angular-on-StackBlitz/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luffySAMA">
@@ -653,7 +824,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="luffySAMA's home">
+      <meta itemprop="name" content="luffySAMA's blog">
     </span>
 
     
@@ -815,7 +986,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luffysama.github.io/2018/08/29/Share-code-on-CodePen/">
+    <link itemprop="mainEntityOfPage" href="https://www.luffysama.com/2018/08/29/Share-code-on-CodePen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luffySAMA">
@@ -824,7 +995,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="luffySAMA's home">
+      <meta itemprop="name" content="luffySAMA's blog">
     </span>
 
     
@@ -985,7 +1156,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://luffysama.github.io/2018/08/28/learn-git/">
+    <link itemprop="mainEntityOfPage" href="https://www.luffysama.com/2018/08/28/learn-git/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="luffySAMA">
@@ -994,7 +1165,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="luffySAMA's home">
+      <meta itemprop="name" content="luffySAMA's blog">
     </span>
 
     
@@ -1182,7 +1353,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1199,7 +1370,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1218,7 +1391,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
