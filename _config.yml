@@ -3,8 +3,8 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: luffySAMA's home
-subtitle: 每天都比昨天进步一点
+title: luffySAMA's blog
+subtitle: 保持一颗学习的心
 description: 前端开发
 keywords:
 author: luffySAMA
@@ -13,7 +13,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://luffysama.github.io
+url: https://www.luffysama.com
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
