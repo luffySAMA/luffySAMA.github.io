@@ -1,5 +1,5 @@
 ---
-title: 如何在一台服务器上部署多个网站或应用
+title: 如何在一台服务器上部署多个网站
 date: 2018-09-16 22:51:00
 tags: nginx
 categories: 经验总结
@@ -15,15 +15,15 @@ categories: 经验总结
 
 <!-- more -->
 
-## 在一台服务器上部署多个网站
+## 如何部署多个静态网站
 
-例如，在一个服务器上，托管了多个网站，一个是 pc 端，一个是手机端。当我用 www.website.com 访问的  时候，看到的是 pc 端页面，当我用 m.website.com 访问的时候，看到的是手机端的页面。
+例如，在一个服务器上，托管了多个网站，一个是 pc 端，一个是手机端。当我用 www.website.com 访问的时候，看到的是 pc 端页面，当我用 m.website.com 访问的时候，看到的是手机端的页面。
 
-如果博客是静态的，那么很简单，不需要用到多个端口， 用 Nginx 的虚拟主机(virtual host)功能就可以 轻松搞定。
+如果网站是静态的，那么很简单，不需要用到多个端口， 用 Nginx 的虚拟主机(virtual host)功能就可以轻松搞定。
 
 具体实现：
 
-首先启动  Nginx，运行在 80 端口。此时访问 80 端口，看到的是 Nginx 默认的欢迎界面，它的源文件在服务器的 `/usr/share/nginx/html` 目录下。
+首先启动 Nginx，运行在 80 端口。此时访问 80 端口，看到的是 Nginx 默认的欢迎界面，它的源文件在服务器的 `/usr/share/nginx/html` 目录下。
 
 在这个目录的同级的地方，建两个新的文件夹分别为`/usr/share/nginx/www` 和 `/usr/share/nginx/m`。 然后把 pc 端文件传到 `www` 文件夹里，把 手机端的文件传到 `m` 文件夹里。
 
@@ -35,7 +35,7 @@ http {
 }
 ```
 
-然后在 `/etc/nginx/conf.d` 目录里面创建一个 `www.conf` 文件，在 `m.conf` 里面写上下面这段代码
+然后在 `/etc/nginx/conf.d` 目录里面创建一个 `www.conf` 文件，在 `www.conf` 里面写上下面这段代码
 
 ```nginx
 server {
@@ -87,9 +87,9 @@ nginx -s reload
 
 这样当浏览器用 m.website.com 访问服务器时，就会返回 `/usr/share/nginx/m/index.html` 的内容
 
-## 在一台服务器上部署多个应用
+## 如何部署多个动态网站
 
-另一种情况是，同一个服务器上部署了 2 个应用，分别运行在不同的端口，例如 tomcat 运行在 8080，nodejs 运行在 3000。这时候希望用域名而不是端口号来访问这两个应用，tomcat.website.com 访问的就是 tomcat，nodejs.website.com 访问的就是 nodejs。
+另一种情况是，网站是动态的，他们有自己的后台服务，例如 tomcat 运行在 8080，nodejs 运行在 3000。这时候希望用域名而不是端口号来访问这两个网站，tomcat.website.com 访问的就是 tomcat，nodejs.website.com 访问的就是 nodejs。
 
 做法一样很简单，和上面的情况类似， 在 `conf.d` 目录下创建两个配置文件
 
