@@ -17,7 +17,7 @@ categories: 经验总结
 
 ## 在一台服务器上部署多个网站
 
-例如，在一个服务器上，托管了多个博客，类似于 github 的 gh-pages。当我  用 lucy.blog.com 访问的  时候，看到的是 lucy 的 blog，当我用 lily.blog.com 访问的时候，看到的是 lily 的 blog。
+例如，在一个服务器上，托管了多个网站，一个是 pc 端，一个是手机端。当我用 www.website.com 访问的  时候，看到的是 pc 端页面，当我用 m.website.com 访问的时候，看到的是手机端的页面。
 
 如果博客是静态的，那么很简单，不需要用到多个端口， 用 Nginx 的虚拟主机(virtual host)功能就可以 轻松搞定。
 
@@ -25,7 +25,7 @@ categories: 经验总结
 
 首先启动  Nginx，运行在 80 端口。此时访问 80 端口，看到的是 Nginx 默认的欢迎界面，它的源文件在服务器的 `/usr/share/nginx/html` 目录下。
 
-在这个  目录的同级的地方，建两个新的文件夹分别为`/usr/share/nginx/lucy` 和 `/usr/share/nginx/lily`。 然后把 lucy 的博客文件传到 `lucy` 文件夹里，把 lily 的博客文件传到 `lily` 文件夹里。
+在这个目录的同级的地方，建两个新的文件夹分别为`/usr/share/nginx/www` 和 `/usr/share/nginx/m`。 然后把 pc 端文件传到 `www` 文件夹里，把 手机端的文件传到 `m` 文件夹里。
 
 接着打开 Nginx 的配置文件 `/etc/nginx/nginx.conf`，找到 `http` 部分，在最后加上下面这行（如果没有的话）
 
@@ -35,16 +35,16 @@ http {
 }
 ```
 
-然后在 `/etc/nginx/conf.d` 目录里面创建一个 `lucy.conf` 文件，在 `lucy.conf` 里面写上下面这段代码
+然后在 `/etc/nginx/conf.d` 目录里面创建一个 `www.conf` 文件，在 `m.conf` 里面写上下面这段代码
 
 ```nginx
 server {
 
   listen 80;
-  server_name lucy.blog.com;
+  server_name www.website.com;
 
   location / {
-    root   /usr/share/nginx/lucy;
+    root   /usr/share/nginx/www;
     index  index.html index.htm;
   }
 
@@ -59,18 +59,18 @@ nginx -s reload
 
 重新加载配置
 
-这样当浏览器访问 lucy.blog.com 时，就会返回`/usr/share/nginx/lucy/index.html` 的内容。
+这样当浏览器访问 www.website.com 时，就会返回`/usr/share/nginx/www/index.html` 的内容。
 
-同理创建一个 `lily.conf`，在 `lily.conf` 里面写入
+同理创建一个 `m.conf`，在 `m.conf` 里面写入
 
 ```nginx
 server {
 
   listen 80;
-  server_name lily.blog.com;
+  server_name m.website.com;
 
   location / {
-    root   /usr/share/nginx/lily;
+    root   /usr/share/nginx/m;
     index  index.html index.htm;
   }
 
@@ -85,21 +85,21 @@ nginx -s reload
 
 重新加载配置
 
-这样当浏览器用 lily.blog.com 访问服务器时，就会返回 `/usr/share/nginx/lily/index.html` 的内容
+这样当浏览器用 m.website.com 访问服务器时，就会返回 `/usr/share/nginx/m/index.html` 的内容
 
 ## 在一台服务器上部署多个应用
 
-另一种情况是，同一个服务器上部署了 2 个应用，分别运行在不同的端口，例如 tomcat 运行在 8080，nodejs 运行在 3000。这时候希望用域名而不是端口号来访问这两个应用，tomcat.abc.com 访问的就是 tomcat，nodejs.abc.com 访问的就是 nodejs。
+另一种情况是，同一个服务器上部署了 2 个应用，分别运行在不同的端口，例如 tomcat 运行在 8080，nodejs 运行在 3000。这时候希望用域名而不是端口号来访问这两个应用，tomcat.website.com 访问的就是 tomcat，nodejs.website.com 访问的就是 nodejs。
 
 做法一样很简单，和上面的情况类似， 在 `conf.d` 目录下创建两个配置文件
 
-`tomcat.conf`
+tomcat.conf
 
 ```nginx
 server {
 
   listen 80;
-  server_name tomcat.abc.com;
+  server_name tomcat.website.com;
 
   location / {
     proxy_pass   http://localhost:8080;
@@ -108,13 +108,13 @@ server {
 }
 ```
 
-`nodejs.conf`
+nodejs.conf
 
 ```nginx
 server {
 
   listen 80;
-  server_name nodejs.abc.com;
+  server_name nodejs.website.com;
 
   location / {
     proxy_pass   http://localhost:3000;
