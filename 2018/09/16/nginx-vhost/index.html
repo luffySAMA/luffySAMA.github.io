@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="luffySAMA&#39;s blog">
 <meta property="og:description" content="最开始我租服务器的目的和许多人一样——想去看看“外面”的世界。当我实现这个小目标之后，我发现我对服务器的资源利用率  其实是非常低的，换句话说，我太浪费了。我开始思考我应该可以用这台服务器干更多的事情，比如在上面建个网站、写写博客、还可以搭一个私有云盘……等等等等 此时我遇到一个问题，我该怎样把这几个东西部署在同一个服务器上呢？如果我的网站是在 80 端口，博客是在 8080 端口，然后我的私有">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-17T05:45:00.737Z">
+<meta property="og:updated_time" content="2018-09-17T05:46:13.180Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何在一台服务器上部署多个网站">
 <meta name="twitter:description" content="最开始我租服务器的目的和许多人一样——想去看看“外面”的世界。当我实现这个小目标之后，我发现我对服务器的资源利用率  其实是非常低的，换句话说，我太浪费了。我开始思考我应该可以用这台服务器干更多的事情，比如在上面建个网站、写写博客、还可以搭一个私有云盘……等等等等 此时我遇到一个问题，我该怎样把这几个东西部署在同一个服务器上呢？如果我的网站是在 80 端口，博客是在 8080 端口，然后我的私有">
@@ -438,7 +438,7 @@
 <p>在这个目录的同级的地方，建两个新的文件夹分别为<code>/usr/share/nginx/www</code> 和 <code>/usr/share/nginx/m</code>。 然后把 pc 端文件传到 <code>www</code> 文件夹里，把 手机端的文件传到 <code>m</code> 文件夹里。</p>
 <p>接着打开 Nginx 的配置文件 <code>/etc/nginx/nginx.conf</code>，找到 <code>http</code> 部分，在最后加上下面这行（如果没有的话）</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span> /etc/nginx/conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后在 <code>/etc/nginx/conf.d</code> 目录里面创建一个 <code>www.conf</code> 文件，在 <code>m.conf</code> 里面写上下面这段代码</p>
+<p>然后在 <code>/etc/nginx/conf.d</code> 目录里面创建一个 <code>www.conf</code> 文件，在 <code>www.conf</code> 里面写上下面这段代码</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> www.website.com;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">root</span>   /usr/share/nginx/www;</span><br><span class="line">    <span class="attribute">index</span>  index.html index.htm;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>运行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
